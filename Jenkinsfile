@@ -5,25 +5,25 @@ pipeline {
 
         stage('Clone Code') {
             steps {
-                git 'https://github.com/YOUR_USERNAME/node-jenkins-app.git'
+                git url: "https://github.com/akshayshetty709/django-notes-app.git", branch:"main"
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Installing Dependencies') {
             steps {
-                sh 'npm install'
+                sh "npm install"
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Building Docker Image') {
             steps {
-                sh 'docker build -t node-jenkins-app .'
+                sh "docker build -t node-app:latest ."
             }
         }
 
-        stage('Run Container') {
+        stage('Running Container') {
             steps {
-                sh 'docker run -d -p 3000:3000 node-jenkins-app'
+                sh "docker run -d -p 3000:3000 --name node-app node-app:latest"
             }
         }
 
