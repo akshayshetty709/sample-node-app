@@ -1,31 +1,47 @@
 pipeline {
-    agent { label "shetty" }
+    agent any
+
+    parameters {
+        string(name: 'IMAGE_TAG', defaultValue: 'latest', description: 'Docker Image Tag')
+    }
+
+    environment {
+        DOCKER_IMAGE = "yourdockerhubusername/node-demo"
+    }
 
     stages {
 
-        stage('Clone Code') {
+        stage('Checkout Code') {
             steps {
-                git url: "https://github.com/akshayshetty709/sample-node-app.git", branch:"main"
+                git 'https://github.com/yourusername/nodejs-demo-app.git'
             }
         }
 
-        stage('Installing Dependencies') {
+        stage('Install Dependencies') {
             steps {
-                sh "npm install"
+                sh 'npm install'
             }
         }
 
-        stage('Building Docker Image') {
+        stage('Build Docker Image') {
             steps {
-                sh "docker build -t node-app:latest ."
+                sh "docker build -t $DOCKER_IMAGE:${params.IMAGE_TAG} ."
             }
         }
 
-        stage('Running Container') {
+        stage('Push to DockerHub') {
             steps {
-                sh "docker run -d -p 3000:3000 --name node-app node-app:latest"
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh 'echo $PASS | docker login -u $USER --password-stdin'
+                    sh "docker push $DOCKER_IMAGE:${params.IMAGE_TAG}"
+                }
             }
         }
 
+        stage('Run Container') {
+            steps {
+                sh "docker run -d -p 3000:3000 $DOCKER_IMAGE:${params.IMAGE_TAG}"
+            }
+        }
     }
 }
