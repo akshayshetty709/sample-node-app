@@ -13,7 +13,7 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                git_url: "https://github.com/akshayshetty709/sample-node-app.git", branch: "main"
+                git url: "https://github.com/akshayshetty709/sample-node-app.git", branch: "main"
             }
         }
 
