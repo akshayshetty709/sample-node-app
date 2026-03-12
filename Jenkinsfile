@@ -13,7 +13,7 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                git_url:"", branch: "main"
+                git_url: "https://github.com/akshayshetty709/sample-node-app.git", branch: "main"
             }
         }
 
@@ -35,7 +35,7 @@ pipeline {
                     'credentialsId':"Dockerhubcred",
                     passwordVariable:"DockerhubPass",
                     usernameVariable:"DockerhubUser")]) {
-                    sh "docker login -u $DockerhubUser -p $DockerhubPass
+                    sh "docker login -u ${env.DockerhubUser} -p ${env.DockerhubPass}
                     sh "docker push $DOCKER_IMAGE:${params.IMAGE_TAG}"
                 }
             }
