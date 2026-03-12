@@ -1,19 +1,19 @@
 pipeline {
-    agent any
+    agent { label "shetty" }
 
     parameters {
         string(name: 'IMAGE_TAG', defaultValue: 'latest', description: 'Docker Image Tag')
     }
 
     environment {
-        DOCKER_IMAGE = "yourdockerhubusername/node-demo"
+        DOCKER_IMAGE = "akshaykumarshetty/node-demo"
     }
 
     stages {
 
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/yourusername/nodejs-demo-app.git'
+                git_url:"", branch: "main"
             }
         }
 
@@ -35,7 +35,7 @@ pipeline {
                     'credentialsId':"Dockerhubcred",
                     passwordVariable:"DockerhubPass",
                     usernameVariable:"DockerhubUser")]) {
-                    sh 'echo $PASS | docker login -u $USER --password-stdin'
+                    sh "docker login -u $DockerhubUser -p $DockerhubPass
                     sh "docker push $DOCKER_IMAGE:${params.IMAGE_TAG}"
                 }
             }
