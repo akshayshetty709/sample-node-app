@@ -1,5 +1,6 @@
 pipeline {
-    agent { label "shetty" }
+
+ agent any
 
     parameters {
         string(name: 'IMAGE_TAG', defaultValue: 'latest', description: 'Docker Image Tag')
