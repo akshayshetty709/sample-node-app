@@ -1,0 +1,208 @@
+version: ""
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+     - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+     - "6379:6379"
+  kafka:
+    image: apache/kafka
+    container_name: kafka
+    restart: always
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ENABLE_KRAFT: "yes"
+      KAFKA_PROCESS_ROLES: "broker,controller"
+      KAFKA_NODE_ID: "1"
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@kafka:9093"
+      KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+      KAFKA_LISTENERS: "PLAINTEXT://:9092,CONTROLLER://:9093"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
+      ALLOW_PLAINTEXT_LISTENER: "yes"
+
+  gateway-service:
+    build: ./gatewayservice
+    container_name: gateway
+    ports:
+      - "2000:2000"
+    depends_on:
+      - mongo
+      - redis
+      - kafka
+
+  auth-service:
+    build: ./CRM-Backend-AuthenticationService
+    container_name: auth-service
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mongo
+      - redis
+      - kafka
+  user-service:
+    build: ./CRM-Backend-User-AccessManagementService
+    container_name: user-service
+    ports:
+      - "5002:5002"
+    depends_on:
+      - mongo
+      - redis
+      - kafka
+  leads-service:
+    build: ./CRM-Backend-LeadsService
+    container_name: leads-service
+    ports:
+      - "5003:5003"
+    depends_on:
+      - mongo
+      - redis
+      - kafka
+  # call-service:
+  #   build: ./CRM-Backend-CallsService
+  #   container_name: call-service
+  #   ports:
+  #     - "5004:5004"
+  #   depends_on:
+  #     - mongo
+  #     - redis
+  #     - kafka
+  followup-service:
+    build: ./CRM-Backend-Follow-upService
+    container_name: followup-service
+    ports:
+      - "5005:5005"
+    depends_on:
+      - mongo
+      - redis
+      - kafka
+  # telecaller-service:
+  #   build: ./CRM-Backend-TelecallerService
+  #   container_name: telecaller-service
+  #   ports:
+  #     - "5006:5006"
+  #   depends_on:
+  #     - mongo
+  #     - redis
+  #     - kafka
+  # sales-service:
+  #   build: ./CRM-Backend-SalesService
+  #   container_name: sales-service
+  #   ports:
+  #     - "5007:5007"
+  #   depends_on:
+  #     - mongo
+  #     - redis
+  #     - kafka
+  # ticket-service:
+  #   build: ./CRM-Backend-TicketService
+  #   container_name: ticket-service
+  #   ports:
+  #     - "5008:5008"
+  #   depends_on:
+  #     - mongo
+  #     - redis
+  #     - kafka
+  quotation-service:
+    build: ./CRM-Backend-QuotationService
+    container_name: quotation-service
+    ports:
+      - "5009:5009"
+    depends_on:
+      - mongo
+      - redis
+      - kafka
+  # order-service:
+  #   build: ./CRM-Backend-OrderService
+  #   container_name: order-service
+  #   ports:
+  #     - "5010:5010"
+  #   depends_on:
+  #     - mongo
+  #     - redis
+  #     - kafka
+  # invoice-service:
+  #   build: ./CRM-Backend-InvoiceService
+  #   container_name: invoice-service
+  #   ports:
+  #     - "5011:5011"
+  #   depends_on:
+  #     - mongo
+  #     - redis
+  #     - kafka
+  # payment-service:
+  #   build: ./CRM-Backend-PaymentService
+  #   container_name: payment-service
+  #   ports:
+  #     - "5012:5012"
+  #   depends_on:
+  #     - mongo
+  #     - redis
+  #     - kafka
+  # product-service:
+  #   build: ./CRM-Backend-ProductService
+  #   container_name: product-service
+  #   ports:
+  #     - "5013:5013"
+  #   depends_on:
+  #     - mongo
+  #     - redis
+  #     - kafka
+  # notification-service:
+  #   build: ./CRM-Backend-NotificationService
+  #   container_name: notification-service
+  #   ports:
+  #     - "5014:5014"
+  #   depends_on:
+  #     - mongo
+  #     - redis
+  #     - kafka
+  # email-service:
+  #   build: ./
+  #   container_name: email-service
+  #   ports:
+  #     - "5015:5015"
+  #   depends_on:
+  #     - mongo
+  #     - redis
+  #     - kafka
+  # storage-service:
+  #   build: ./CRM-Backend-StorageService
+  #   container_name: storage-service
+  #   ports:
+  #     - "5016:5016"
+  #   depends_on:
+  #     - mongo
+  #     - redis
+  #     - kafka
+  # approval-service:
+  #   build: ./CRM-Backend-WorkflowApprovalService
+  #   container_name: approval-service
+  #   ports:
+  #     - "5017:5017"
+  #   depends_on:
+  #     - mongo
+  #     - redis
+  #     - kafka
+  # deals-service:
+  #   build: ./CRM-Backend-DealsService
+  #   container_name: deals-service
+  #   ports:
+  #     - "5018:5018"
+  #   depends_on:
+  #     - mongo
+  #     - redis
+  #     - kafka
+volumes:
+  mongo_data:
