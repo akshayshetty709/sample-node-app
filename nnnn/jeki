@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+ 
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'Ramesh',
+                    credentialsId: 'github-cred',
+                    url: 'https://github.com/Client-Management-Project/CRM-Backend.git'
+            }
+        }
+ 
+        stage('Deploy to EC2') {
+            steps {
+                sshagent(['crm-ssh']) {
+                    sh '''
+                        ssh -A -o StrictHostKeyChecking=no ubuntu@13.206.50.65 \
+                            "set -e && \
+                            cd /home/ubuntu/crm-backend && \
+                            rm -rf CRM-Backend || true && \
+                            git clone -b Ramesh git@github.com:Client-Management-Project/CRM-Backend.git && \
+                            cd /home/ubuntu/crm-backend/CRM-Backend && \
+                            chmod +x clone.sh && \
+                            ./clone.sh && \
+                            docker-compose down || true && \
+                            docker system prune -f && \
+                            docker-compose up --build -d"
+                    '''
+                }
+            }
+        }
+    }
+}
