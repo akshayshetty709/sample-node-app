@@ -1,0 +1,28 @@
+  Warning  Unhealthy       50m  kubelet  Readiness probe failed: calico/node is not ready: BIRD is not ready: Error querying BIRD: unable to connect to BIRDv4 socket: dial unix /var/run/bird/bird.ctl: connect: no such file or directory
+W0427 04:53:46.014226      44 feature_gate.go:241] Setting GA feature gate ServiceInternalTrafficPolicy=true. It will be removed in a future release.
+  Warning  Unhealthy  50m  kubelet  Readiness probe failed: calico/node is not ready: BIRD is not ready: Error querying BIRD: unable to connect to BIRDv4 socket: dial unix /var/run/calico/bird.ctl: connect: connection refused
+W0427 04:53:47.030337     175 feature_gate.go:241] Setting GA feature gate ServiceInternalTrafficPolicy=true. It will be removed in a future release.
+  Warning  Unhealthy  50m  kubelet  Readiness probe failed: 2026-04-27 04:53:55.910 [INFO][229] confd/health.go 180: Number of node(s) with BGP peering established = 0
+calico/node is not ready: BIRD is not ready: BGP not established with 172.31.35.39
+W0427 04:53:55.906337     229 feature_gate.go:241] Setting GA feature gate ServiceInternalTrafficPolicy=true. It will be removed in a future release.
+  Warning  Unhealthy  50m  kubelet  Readiness probe failed: 2026-04-27 04:54:05.908 [INFO][265] confd/health.go 180: Number of node(s) with BGP peering established = 0
+calico/node is not ready: BIRD is not ready: BGP not established with 172.31.35.39
+W0427 04:54:05.905642     265 feature_gate.go:241] Setting GA feature gate ServiceInternalTrafficPolicy=true. It will be removed in a future release.
+  Warning  Unhealthy  50m  kubelet  Readiness probe failed: 2026-04-27 04:54:15.910 [INFO][338] confd/health.go 180: Number of node(s) with BGP peering established = 0
+calico/node is not ready: BIRD is not ready: BGP not established with 172.31.35.39
+W0427 04:54:15.906313     338 feature_gate.go:241] Setting GA feature gate ServiceInternalTrafficPolicy=true. It will be removed in a future release.
+  Warning  Unhealthy  50m  kubelet  Readiness probe failed: 2026-04-27 04:54:25.906 [INFO][377] confd/health.go 180: Number of node(s) with BGP peering established = 0
+calico/node is not ready: BIRD is not ready: BGP not established with 172.31.35.39
+W0427 04:54:25.904951     377 feature_gate.go:241] Setting GA feature gate ServiceInternalTrafficPolicy=true. It will be removed in a future release.
+  Warning  Unhealthy  49m  kubelet  Readiness probe failed: 2026-04-27 04:54:35.913 [INFO][404] confd/health.go 180: Number of node(s) with BGP peering established = 0
+calico/node is not ready: BIRD is not ready: BGP not established with 172.31.35.39
+W0427 04:54:35.909963     404 feature_gate.go:241] Setting GA feature gate ServiceInternalTrafficPolicy=true. It will be removed in a future release.
+  Warning  Unhealthy  49m  kubelet  Readiness probe failed: 2026-04-27 04:54:45.910 [INFO][434] confd/health.go 180: Number of node(s) with BGP peering established = 0
+calico/node is not ready: BIRD is not ready: BGP not established with 172.31.35.39
+W0427 04:54:45.907680     434 feature_gate.go:241] Setting GA feature gate ServiceInternalTrafficPolicy=true. It will be removed in a future release.
+  Warning  Unhealthy  49m  kubelet  Readiness probe failed: 2026-04-27 04:54:55.908 [INFO][466] confd/health.go 180: Number of node(s) with BGP peering established = 0
+calico/node is not ready: BIRD is not ready: BGP not established with 172.31.35.39
+W0427 04:54:55.905850     466 feature_gate.go:241] Setting GA feature gate ServiceInternalTrafficPolicy=true. It will be removed in a future release.
+  Warning  Unhealthy  47s (x332 over 49m)  kubelet  (combined from similar events): Readiness probe failed: 2026-04-27 05:43:45.910 [INFO][9717] confd/health.go 180: Number of node(s) with BGP peering established = 0
+calico/node is not ready: BIRD is not ready: BGP not established with 172.31.35.39
+W0427 05:43:45.907382    9717 feature_gate.go:241] Setting GA feature gate ServiceInternalTrafficPolicy=true. It will be removed in a future release.
