@@ -6,3 +6,5 @@ Today I'm practising the Jenkins CI/CD and QA automation integration using a sma
 
 • Setting up 2 EC2 servers: one for the DevOps Jenkins and the app, one for the QA Jenkins
 • Deploying the demo app with a Jenkins pipeline
+• Running the QA job on the second Jenkins and reading its test report
+• Triggering the QA job from the DevOps Jenkins with an API token
